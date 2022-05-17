@@ -30,7 +30,9 @@ class Main {
               String imie=scan.nextLine();
               System.out.println("Podaj wiek: ");
               int wiek=scan.nextInt(); scan.nextLine();
-              s.addStudent(new Student(imie, wiek));
+              System.out.println("Podaj date urodzenia: ");
+              String dataur=scan.nextLine();
+              s.addStudent(new Student(imie, wiek, dataur));
               wyczysc();
               break;
             }

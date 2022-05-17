@@ -1,3 +1,1 @@
-Krzysztof 20
-Janusz 40
-karol 21
+karol 21 20.21.2022
