@@ -19,6 +19,7 @@ class Main {
       System.out.println("-----------MENU------------");
       System.out.println("1. Dopisz studenta.");
       System.out.println("2. Pokaz studentow.");
+      System.out.println("3. Znajdz studenta.");
       System.out.println("9. Wyjscie.");
       wybor=scan.nextInt();
       scan.nextLine();
@@ -48,7 +49,21 @@ class Main {
               scan.nextLine();//by rozwiazac problem z pomijaniem scannera po nextInt
               wyczysc();
               break;
-            }  
+            } 
+            case 3: {
+            wyczysc();
+            System.out.println("Wybrano opcje 3. ");
+            //------------szukanie
+            System.out.print("Podaj szukane imie: ");
+            String szukane=scan.nextLine();
+            if(s.findStudentByName(szukane)==null)System.out.println("Nie znaleziono!");
+            else System.out.println(s.findStudentByName(szukane).ToString());
+            //------------------
+            scan.nextLine();
+            wyczysc();
+            //-----------------
+            break;
+          }
           }
       }
         scan.close();
