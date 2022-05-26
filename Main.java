@@ -3,10 +3,12 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.InputMismatchException;
 
 class WrongStudentName extends Exception {}
 class WrongAge extends Exception {}
 class WrongDateOfBirth extends Exception{}
+class WrongMenuOption extends Exception { }
 
 class Main {
   
@@ -44,18 +46,24 @@ class Main {
     throw new WrongDateOfBirth();
     }
   }
-
-  public static void main(String[] args) {
-    try {
-      Service1 s = new Service1();
-      int wybor=0;
-      while(wybor!=9){
+  public static int ReadMenu() throws WrongMenuOption {
       System.out.println("-----------MENU------------");
       System.out.println("1. Dopisz studenta.");
       System.out.println("2. Pokaz studentow.");
       System.out.println("3. Znajdz studenta.");
       System.out.println("9. Wyjscie.");
-      wybor=scan.nextInt();
+    try{
+      return scan.nextInt();
+    }catch(InputMismatchException e){
+      throw new WrongMenuOption();
+    }
+  }
+  public static void main(String[] args) {
+    try {
+      Service1 s = new Service1();
+      int wybor=0;
+      while(wybor!=9){
+      wybor=ReadMenu();
       scan.nextLine();
           switch(wybor){
             case 1: {
@@ -110,5 +118,9 @@ class Main {
       catch (IOException e) {
         System.out.println("ERROR!");
     }
+      catch(WrongMenuOption e){
+        System.out.println("Nalezy podac liczbę!");
+    }
+    
   }
 }
