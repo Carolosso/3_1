@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+class StudentParseError extends Exception { }
 public class Service1 {
   
   public void addStudent(Student student) throws IOException {
@@ -24,7 +26,11 @@ public class Service1 {
       line = reader.readLine();
       if(line == null)
         break;
-      ret.add(Student.Parse(line));
+      try{
+         ret.add(Student.Parse(line));
+      }catch(StudentParseError e){ 
+        System.out.println("Błędne dane studenta!");
+      }
     }
     reader.close();
     return ret;
