@@ -1,7 +1,12 @@
 import java.util.Scanner;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
-class WrongStudentName extends Exception { }
+class WrongStudentName extends Exception {}
+class WrongAge extends Exception {}
+class WrongDateOfBirth extends Exception{}
 
 class Main {
   
@@ -21,7 +26,25 @@ class Main {
       throw new WrongStudentName();
       return name;
   }
-  
+  public static int ReadAge() throws WrongAge{
+      System.out.println("Podaj wiek: ");
+      int wiek = scan.nextInt();
+      if(wiek<0 || wiek >100 )throw new WrongAge();
+      return wiek;
+  }
+  public static String ReadDateOfBirth() throws WrongDateOfBirth {
+    System.out.println("Podaj datę urodzenia DD-MM-YYY");
+    String date = scan.nextLine();
+    try {
+    DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+    format.setLenient(false);
+    format.parse(date);
+    return date;
+    } catch(ParseException e){
+    throw new WrongDateOfBirth();
+    }
+  }
+
   public static void main(String[] args) {
     try {
       Service1 s = new Service1();
@@ -39,10 +62,8 @@ class Main {
               wyczysc();
               System.out.println("Wybrano opcje 1. ");
               String imie = ReadName();
-              System.out.println("Podaj wiek: ");
-              int wiek=scan.nextInt(); scan.nextLine();
-              System.out.println("Podaj date urodzenia: ");
-              String dataur=scan.nextLine();
+              int wiek= ReadAge(); scan.nextLine();
+              String dataur= ReadDateOfBirth();
               s.addStudent(new Student(imie, wiek, dataur));
               wyczysc();
               break;
@@ -77,8 +98,14 @@ class Main {
           }
       }
         scan.close();
-    }  catch (WrongStudentName e) {
+    } catch (WrongStudentName e) {
         System.out.print("Błędne imie!");
+    }  
+      catch (WrongDateOfBirth e) {
+        System.out.print("Błędne data urodzenia!");
+    }   
+      catch (WrongAge e) {
+        System.out.print("Błędny wiek!");
     }  
       catch (IOException e) {
         System.out.println("ERROR!");
