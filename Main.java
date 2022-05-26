@@ -1,8 +1,12 @@
 import java.util.Scanner;
 import java.io.IOException;
 
+class WrongStudentName extends Exception { }
+
 class Main {
   
+  public static Scanner scan = new Scanner(System.in);
+
   public static void wyczysc(){
     //wyczyszczenie ekranu
     System.out.print("\033[H\033[2J");
@@ -10,10 +14,17 @@ class Main {
     //-----------------
   }
   
+  public static String ReadName() throws WrongStudentName {
+      System.out.println("Podaj imie: ");
+      String name = scan.nextLine();
+      if(name.contains(" "))
+      throw new WrongStudentName();
+      return name;
+  }
+  
   public static void main(String[] args) {
     try {
       Service1 s = new Service1();
-      Scanner scan = new Scanner(System.in);
       int wybor=0;
       while(wybor!=9){
       System.out.println("-----------MENU------------");
@@ -27,8 +38,7 @@ class Main {
             case 1: {
               wyczysc();
               System.out.println("Wybrano opcje 1. ");
-              System.out.println("Podaj imie: ");
-              String imie=scan.nextLine();
+              String imie = ReadName();
               System.out.println("Podaj wiek: ");
               int wiek=scan.nextInt(); scan.nextLine();
               System.out.println("Podaj date urodzenia: ");
@@ -67,8 +77,11 @@ class Main {
           }
       }
         scan.close();
-    } catch (IOException e) {
-
+    }  catch (WrongStudentName e) {
+        System.out.print("Błędne imie!");
+    }  
+      catch (IOException e) {
+        System.out.println("ERROR!");
     }
   }
 }

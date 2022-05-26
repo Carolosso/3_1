@@ -18,11 +18,14 @@ public class Student {
   public String ToString() {
     return Name + " " + Integer.toString(Age)+ " " + BirthDay;
   }
+  
+  public static final String alpha = "abcdefghijklmnopqrstuvwxyz";
 
   public static Student Parse(String str) {
     String[] data = str.split(" ");
     if(data.length != 3) 
       return new Student("Parse Error", -1 , "00.00.0000");
+    
     return new Student(data[0], Integer.parseInt(data[1]), data[2]);
   }
 }
