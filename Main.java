@@ -30,7 +30,7 @@ class Main {
   }
   public static int ReadAge() throws WrongAge{
       System.out.println("Podaj wiek: ");
-      int wiek = scan.nextInt();
+      int wiek = scan.nextInt();scan.nextLine();
       if(wiek<0 || wiek >100 )throw new WrongAge();
       return wiek;
   }
@@ -58,11 +58,12 @@ class Main {
       throw new WrongMenuOption();
     }
   }
+  
   public static void main(String[] args) {
-    try {
       Service1 s = new Service1();
       int wybor=0;
       while(wybor!=9){
+        try{
       wybor=ReadMenu();
       scan.nextLine();
           switch(wybor){
@@ -70,7 +71,7 @@ class Main {
               wyczysc();
               System.out.println("Wybrano opcje 1. ");
               String imie = ReadName();
-              int wiek= ReadAge(); scan.nextLine();
+              int wiek= ReadAge(); //scan.nextLine();
               String dataur= ReadDateOfBirth();
               s.addStudent(new Student(imie, wiek, dataur));
               wyczysc();
@@ -104,23 +105,38 @@ class Main {
             break;
           }
           }
-      }
-        scan.close();
-    } catch (WrongStudentName e) {
+          }
+        catch (WrongStudentName e) {
+        wyczysc();
         System.out.print("Błędne imie!");
+        scan.nextLine();
+        wyczysc();    
     }  
       catch (WrongDateOfBirth e) {
+        wyczysc();
         System.out.print("Błędne data urodzenia!");
+        scan.nextLine();
+        wyczysc();
     }   
       catch (WrongAge e) {
+        wyczysc();
         System.out.print("Błędny wiek!");
+        scan.nextLine();
+        wyczysc();
     }  
       catch (IOException e) {
+        wyczysc();
         System.out.println("ERROR!");
+        scan.nextLine();
+        wyczysc();
     }
       catch(WrongMenuOption e){
+        wyczysc();
         System.out.println("Nalezy podac liczbę!");
+        scan.nextLine();
+        wyczysc();
     }
-    
+      }
+        scan.close(); 
   }
 }

@@ -6,7 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-class StudentParseError extends Exception { }
+class StudentParseError extends Exception {}
+
 public class Service1 {
   
   public void addStudent(Student student) throws IOException {
